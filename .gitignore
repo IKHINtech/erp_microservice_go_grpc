@@ -1,0 +1,29 @@
+# Environment variables
+.env                # Exclude local .env file (sensitive data!)
+.env.local          # Exclude local overrides
+
+auth-microservice/.env
+
+# Dependency directories
+vendor/             # Jika menggunakan Go modules (biasanya tidak perlu di-ignore)
+
+# Development files
+.idea/              # Untuk IDE JetBrains (Goland, IntelliJ)
+.vscode/            # Untuk VS Code
+*.swp               # File swap editor (Vim, Nano)
+*.swo
+
+# Log files
+*.log               # File log aplikasi
+
+# Test output
+coverage.out        # Output test coverage
+/tests/results/     # Folder hasil test
+
+# Database files (jika ada)
+*.db                # SQLite databases
+/db/migrations/*.sqlite  # Contoh migrasi lokal
+
+# File spesifik Go
+/go.sum             # Bisa di-ignore jika pakai Go modules (kontroversial)
+      
