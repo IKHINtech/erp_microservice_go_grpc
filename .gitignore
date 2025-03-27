@@ -5,6 +5,7 @@
 auth-microservice/.env
 auth-microservice/proto/
 
+api-gateway/.env
 # Dependency directories
 vendor/             # Jika menggunakan Go modules (biasanya tidak perlu di-ignore)
 

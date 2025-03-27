@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/proto/auth/v1"
+	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/gen-proto/proto/auth/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
