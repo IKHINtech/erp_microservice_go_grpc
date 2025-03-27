@@ -29,7 +29,7 @@ func NewClient(addr string, timeoutSec int) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) Login(ctx context.Context, email, password string) (string, error) {
+func (c *Client) Login(ctx context.Context, email, password string) (*authv1.LoginResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)
 	defer cancel()
 
@@ -39,10 +39,10 @@ func (c *Client) Login(ctx context.Context, email, password string) (string, err
 		Password: password,
 	})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return res.Token, nil
+	return res, nil
 }
 
 func (c *Client) Register(ctx context.Context, req *authv1.RegisterUserRequest) (*authv1.RegisterUserResponse, error) {

@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"errors"
+	"time"
 
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/config"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/models"
@@ -105,14 +106,40 @@ func (s *AuthServer) Login(ctx context.Context, req *authv1.LoginRequest) (*auth
 		return nil, status.Error(codes.Unauthenticated, "password salah")
 	}
 
-	// 3. Generate JWT
-	token, err := utils.GenerateJWT(user.ID.String(), config.CFG)
+	accessToken, err := utils.GenerateJWT(user.ID.String(), "access", config.CFG.JWTSecret, 15*time.Minute)
 	if err != nil {
-		return nil, status.Error(codes.Internal, "gagal generate token")
+		return nil, status.Error(codes.Internal, "failed to generate token")
+	}
+
+	refreshToken, err := utils.GenerateJWT(user.ID.String(), "refresh", config.CFG.JWTSecret, 7*24*time.Hour)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "failed to generate refresh token")
 	}
 
 	return &authv1.LoginResponse{
-		Token:  token,
-		UserId: user.ID.String(),
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
+		UserId:       user.ID.String(),
+	}, nil
+}
+
+func (s *AuthServer) RefreshToken(ctx context.Context, req *authv1.RefreshTokenRequest) (*authv1.RefreshTokenResponse, error) {
+	claims, err := utils.ValidateJWT(req.RefreshToken, config.CFG.JWTSecret)
+	if err != nil {
+		return nil, status.Error(codes.Unauthenticated, "invalid refresh token")
+	}
+
+	if claims.TokenType != "refresh" {
+		return nil, status.Error(codes.Unauthenticated, "not a refresh token")
+	}
+
+	newAccessToken, err := utils.GenerateJWT(claims.UserID, "access", config.CFG.JWTSecret, 15*time.Minute)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "failed to generate token")
+	}
+
+	return &authv1.RefreshTokenResponse{
+		AccessToken: newAccessToken,
+		ExpiresIn:   900,
 	}, nil
 }

@@ -1,6 +1,6 @@
 generate-auth:
 	@echo "Cleaning old generated files..."
-	rm -rf auth-microservice/proto/*
+	rm -rf auth-microservice/gen-proto/proto/auth*
 	@echo "Generating new code..."
 		protoc --proto_path=proto \
     --go_out=gen-proto \

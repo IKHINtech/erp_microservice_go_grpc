@@ -25,16 +25,16 @@ func NewAuthClient(addr string) (*AuthClient, error) {
 	}, nil
 }
 
-func (c *AuthClient) Login(ctx context.Context, email, password string) (string, error) {
+func (c *AuthClient) Login(ctx context.Context, email, password string) (*authv1.LoginResponse, error) {
 	res, err := c.client.Login(ctx, &authv1.LoginRequest{
 		Email:    email,
 		Password: password,
 	})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return res.Token, nil
+	return res, nil
 }
 
 func (c *AuthClient) Register(ctx context.Context, req *authv1.RegisterUserRequest) (*authv1.RegisterUserResponse, error) {

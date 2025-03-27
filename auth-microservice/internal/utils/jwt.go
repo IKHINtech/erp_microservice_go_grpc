@@ -2,32 +2,28 @@ package utils
 
 import (
 	"errors"
-	"log"
 	"time"
 
-	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/config"
 	"github.com/golang-jwt/jwt/v5"
 )
 
 type Claims struct {
-	UserID string `json:"user_id"`
+	UserID    string `json:"user_id"`
+	TokenType string `json:"token_type"`
 	jwt.RegisteredClaims
 }
 
-func GenerateJWT(userID string, cfg config.Config) (string, error) {
-	if cfg.JWTSecret == "" {
-		log.Fatal("JWT_SECRET tidak boleh kosong")
-	}
-
+func GenerateJWT(userID, tokenType, secret string, expiry time.Duration) (string, error) {
 	claims := Claims{
-		UserID: userID,
+		UserID:    userID,
+		TokenType: tokenType,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expiry)),
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(cfg.JWTSecret))
+	return token.SignedString([]byte(secret))
 }
 
 func ValidateJWT(tokenString string, secret string) (*Claims, error) {

@@ -9,6 +9,7 @@ service AuthService {
   rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse);
   rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
   rpc AssignRoleToUser (AssignRoleRequest) returns (AssignRoleResponse);
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
 }
 
 message LoginRequest {
@@ -17,8 +18,10 @@ message LoginRequest {
 }
 
 message LoginResponse {
-  string token = 1;
-  string user_id = 2;
+    string access_token = 1;
+    string refresh_token= 2;
+    int64 expires_in = 3;
+    string user_id = 4;
 }
 
 message RegisterUserRequest {
@@ -48,4 +51,14 @@ message AssignRoleRequest {
 
 message AssignRoleResponse {
   bool success = 1 ;
+}
+
+message RefreshTokenRequest {
+    string refresh_token = 1;
+  }
+
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token= 2;
+    int64 expires_in = 3;
 }
