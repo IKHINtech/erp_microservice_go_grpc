@@ -3,6 +3,7 @@
 .env.local          # Exclude local overrides
 
 auth-microservice/.env
+auth-microservice/proto/
 
 # Dependency directories
 vendor/             # Jika menggunakan Go modules (biasanya tidak perlu di-ignore)
