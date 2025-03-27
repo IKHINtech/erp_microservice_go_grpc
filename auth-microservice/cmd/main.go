@@ -6,6 +6,7 @@ import (
 
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/config"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/handlers"
+	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/middleware"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/repositories"
 	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/proto/auth/v1"
 	"google.golang.org/grpc"
@@ -37,7 +38,10 @@ func main() {
 
 	authServer := handlers.NewAuthServer(authRepo)
 
-	s := grpc.NewServer()
+	s := grpc.NewServer(
+		grpc.UnaryInterceptor(middleware.LoggingUnaryInterceptor),
+		grpc.StreamInterceptor(middleware.LoggingStreamInterceptor),
+	)
 	authv1.RegisterAuthServiceServer(s, authServer)
 
 	reflection.Register(s)
