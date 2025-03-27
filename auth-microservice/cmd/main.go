@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"time"
 
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/config"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/handlers"
@@ -26,6 +27,9 @@ func main() {
 		log.Fatal("Gagal konek ke database:", err)
 	}
 
+	// Local rate limiting (10 requests/second)
+	rateLimit := middleware.RateLimitInterceptor(10, time.Second)
+
 	authRepo := repositories.NewAuthRepository(db)
 	// if err := authRepo.Migrate(); err != nil {
 	// 	log.Fatal("Gagal migrate database:", err)
@@ -39,8 +43,11 @@ func main() {
 	authServer := handlers.NewAuthServer(authRepo)
 
 	s := grpc.NewServer(
-		grpc.UnaryInterceptor(middleware.LoggingUnaryInterceptor),
 		grpc.StreamInterceptor(middleware.LoggingStreamInterceptor),
+		grpc.ChainUnaryInterceptor(
+			middleware.LoggingUnaryInterceptor,
+			rateLimit,
+		),
 	)
 	authv1.RegisterAuthServiceServer(s, authServer)
 
