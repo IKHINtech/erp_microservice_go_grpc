@@ -20,6 +20,8 @@ type Config struct {
 	JWTExpireHours string `mapstructure:"JWT_EXPIRE_HOURS"`
 }
 
+var CFG Config
+
 func LoadConfig() (config Config, err error) {
 	// Cari lokasi .env (berdasarkan working directory)
 	envPath := filepath.Join(".", ".env")
@@ -39,5 +41,6 @@ func LoadConfig() (config Config, err error) {
 	if config.JWTSecret == "" {
 		log.Fatal("JWT_SECRET tidak boleh kosong")
 	}
+	CFG = config
 	return config, err
 }

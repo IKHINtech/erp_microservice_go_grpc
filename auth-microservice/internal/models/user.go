@@ -12,7 +12,9 @@ type User struct {
 	ID           uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
 	Email        string    `gorm:"unique;not null"`
 	PasswordHash string    `gorm:"not null"`
+	FullName     string    `gorm:"not null"`
 	IsActive     bool      `gorm:"default:true"`
+	Roles        []Role    `gorm:"many2many:user_roles;"`
 	LastLogin    time.Time
 	CreatedAt    time.Time `gorm:"autoCreateTime"`
 	UpdatedAt    time.Time `gorm:"autoUpdateTime"`
