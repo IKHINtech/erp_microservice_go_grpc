@@ -18,3 +18,10 @@ generate-auth:
 
 run-auth:
 	cd auth-microservice && go run cmd/main.go
+
+generate-docs:
+	cd api-gateway && swag init -g cmd/main.go -o docs
+
+run-api-gateway:
+	cd api-gateway && go run cmd/main.go
+
