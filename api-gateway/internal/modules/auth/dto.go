@@ -16,7 +16,7 @@ type (
 		Roles   []string `json:"roles,omitempty"`
 	}
 
-	RegisterUserResponse struct {
+	RegisterUserRequest struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
 		FullName string `json:"full_name"`

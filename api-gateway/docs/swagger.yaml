@@ -23,7 +23,31 @@ definitions:
       token:
         type: string
     type: object
-host: localhost
+  auth.RegisterUserRequest:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+    type: object
+  auth.ValidateTokenRequest:
+    properties:
+      token:
+        type: string
+    required:
+    - token
+    type: object
+  utils.SuccessResponse:
+    properties:
+      data: {}
+      meta:
+        description: Untuk pagination/dll
+      success:
+        type: boolean
+    type: object
+host: localhost:8080
 info:
   contact:
     email: sarikhin@yahoo.co.id
@@ -65,6 +89,66 @@ paths:
           schema:
             $ref: '#/definitions/auth.ErrorResponse'
       summary: User Login
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register User
+      parameters:
+      - description: User Registration
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RegisterUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/auth.ErrorResponse'
+      summary: Register User
+      tags:
+      - Auth
+  /auth/validate:
+    post:
+      consumes:
+      - application/json
+      description: Validate token
+      parameters:
+      - description: Token
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.ValidateTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/auth.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/auth.ErrorResponse'
+      summary: Validate token
       tags:
       - Auth
 securityDefinitions:
