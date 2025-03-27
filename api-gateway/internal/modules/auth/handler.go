@@ -3,6 +3,7 @@ package auth
 import (
 	"net/http"
 
+	"github.com/IKHINtech/erp_api_gateway/internal/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,41 +28,66 @@ func NewHandler(client *AuthClient) *Handler {
 func (h *Handler) Login(c *gin.Context) {
 	var req LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{
-			Error:   "Invalid request format",
-			Details: err.Error(),
-		})
+		utils.RespondError(
+			c,
+			http.StatusBadRequest,
+			"AUTH_400",
+			err,
+			gin.H{"field": map[string]string{
+				"email":    "must be valid email",
+				"password": "min 8 characters",
+			}},
+		)
 		return
 	}
 
 	token, err := h.client.Login(c.Request.Context(), req.Email, req.Password)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, ErrorResponse{
-			Error: "Authentication failed",
-		})
+		utils.RespondError(
+			c,
+			http.StatusUnauthorized,
+			"AUTH_401",
+			err,
+			nil,
+		)
 		return
 	}
 
-	c.JSON(http.StatusOK, LoginResponse{Token: token})
+	utils.RespondSuccess(c, http.StatusOK, gin.H{"token": token}, nil)
+}
+
+func (h *Handler) Register(c *gin.Context) {
+	var req RegisterUserResponse
+	if err := c.ShouldBindJSON(&req); err != nil {
+	}
 }
 
 func (h *Handler) ValidateToken(c *gin.Context) {
 	var req ValidateTokenRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{
-			Error:   "Invalid request format",
-			Details: err.Error(),
-		})
+		utils.RespondError(
+			c,
+			http.StatusBadRequest,
+			"400",
+			err,
+			nil,
+		)
 		return
 	}
 
 	token, err := h.client.ValidateToken(c.Request.Context(), req.Token)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, ErrorResponse{
-			Error: "Authentication failed",
-		})
+		utils.RespondError(
+			c,
+			http.StatusUnauthorized,
+			"AUTH_401",
+			err,
+			nil,
+		)
+
 		return
+
 	}
 
-	c.JSON(http.StatusOK, token)
+	utils.RespondSuccess(c, http.StatusOK, gin.H{"token": token}, nil)
 }
