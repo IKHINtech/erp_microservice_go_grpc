@@ -8,7 +8,7 @@ import (
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/models"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/repositories"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/utils"
-	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/proto/auth/v1"
+	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/gen-proto/proto/auth/v1"
 	"golang.org/x/crypto/bcrypt"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

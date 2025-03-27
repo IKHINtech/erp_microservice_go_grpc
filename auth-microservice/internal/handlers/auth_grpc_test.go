@@ -6,7 +6,7 @@ import (
 
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/handlers"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/models"
-	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/proto/auth/v1"
+	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/gen-proto/proto/auth/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"google.golang.org/grpc/codes"

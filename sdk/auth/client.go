@@ -29,7 +29,6 @@ func NewClient(addr string, timeoutSec int) (*Client, error) {
 	}, nil
 }
 
-// Contoh method untuk Login
 func (c *Client) Login(ctx context.Context, email, password string) (string, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)
 	defer cancel()
