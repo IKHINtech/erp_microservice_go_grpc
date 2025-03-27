@@ -44,3 +44,12 @@ func LoadConfig() (config Config, err error) {
 	CFG = config
 	return config, err
 }
+
+func BuildDSN(cfg Config) string {
+	return "host=" + cfg.DBHost +
+		" user=" + cfg.DBUser +
+		" password=" + cfg.DBPassword +
+		" dbname=" + cfg.DBName +
+		" port=" + cfg.DBPort +
+		" sslmode=" + cfg.DBSSLMode
+}
