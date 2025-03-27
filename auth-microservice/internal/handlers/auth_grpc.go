@@ -17,7 +17,14 @@ import (
 
 type AuthServer struct {
 	authv1.UnimplementedAuthServiceServer
-	Repo *repositories.AuthRepository
+	repo repositories.AuthRepository
+}
+
+func NewAuthServer(repo repositories.AuthRepository) *AuthServer {
+	return &AuthServer{
+		UnimplementedAuthServiceServer: authv1.UnimplementedAuthServiceServer{},
+		repo:                           repo,
+	}
 }
 
 func (s *AuthServer) RegisterUser(ctx context.Context, req *authv1.RegisterUserRequest) (*authv1.RegisterUserResponse, error) {
@@ -25,7 +32,7 @@ func (s *AuthServer) RegisterUser(ctx context.Context, req *authv1.RegisterUserR
 		return nil, errors.New("email dan password harus diisi")
 	}
 	// 2. Cek apakah user sudah ada
-	_, err := s.Repo.GetUserByEmail(req.Email)
+	_, err := s.repo.GetUserByEmail(req.Email)
 	if err == nil {
 		return nil, errors.New("email sudah terdaftar")
 	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -40,7 +47,7 @@ func (s *AuthServer) RegisterUser(ctx context.Context, req *authv1.RegisterUserR
 		IsActive:     true,
 	}
 
-	err = s.Repo.CreateUser(&user)
+	err = s.repo.CreateUser(&user)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +65,7 @@ func (s *AuthServer) ValidateToken(ctx context.Context, req *authv1.ValidateToke
 	}
 
 	// Dapatkan roles dari database
-	roles, err := s.Repo.GetUserRoles(claims.UserID)
+	roles, err := s.repo.GetUserRoles(claims.UserID)
 	if err != nil {
 		return nil, err
 	}
@@ -73,13 +80,13 @@ func (s *AuthServer) ValidateToken(ctx context.Context, req *authv1.ValidateToke
 // AssignRoleToUser implementation
 func (s *AuthServer) AssignRoleToUser(ctx context.Context, req *authv1.AssignRoleRequest) (*authv1.AssignRoleResponse, error) {
 	// 1. Dapatkan role dari database
-	role, err := s.Repo.GetRoleByName(req.RoleName)
+	role, err := s.repo.GetRoleByName(req.RoleName)
 	if err != nil {
 		return nil, errors.New("role tidak ditemukan")
 	}
 
 	// 2. Assign role ke user
-	err = s.Repo.AssignRoleToUser(req.UserId, role.ID.String())
+	err = s.repo.AssignRoleToUser(req.UserId, role.ID.String())
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +95,7 @@ func (s *AuthServer) AssignRoleToUser(ctx context.Context, req *authv1.AssignRol
 }
 
 func (s *AuthServer) Login(ctx context.Context, req *authv1.LoginRequest) (*authv1.LoginResponse, error) {
-	user, err := s.Repo.GetUserByEmail(req.Email)
+	user, err := s.repo.GetUserByEmail(req.Email)
 	if err != nil {
 		return nil, status.Error(codes.NotFound, "user tidak ditemukan")
 	}

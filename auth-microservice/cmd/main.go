@@ -35,9 +35,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	authServer := &handlers.AuthServer{
-		Repo: authRepo,
-	}
+	authServer := handlers.NewAuthServer(authRepo)
 
 	s := grpc.NewServer()
 	authv1.RegisterAuthServiceServer(s, authServer)
