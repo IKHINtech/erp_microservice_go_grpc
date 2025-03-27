@@ -28,3 +28,9 @@ erp-system/
 ├── 📁 docs/                   # Dokumentasi arsitektur
 ├── Makefile                  # Build semua services
 └── README.md                 # File ini
+
+## 🔧 Prasyarat
+- Go 1.21+
+- PostgreSQL 14+
+- gRPC CLI tools 
+
