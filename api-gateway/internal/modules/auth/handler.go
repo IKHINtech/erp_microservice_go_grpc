@@ -144,3 +144,44 @@ func (h *Handler) ValidateToken(c *gin.Context) {
 
 	utils.RespondSuccess(c, http.StatusOK, gin.H{"token": token}, nil)
 }
+
+// @Summary      Refresh Token
+// @Description  Get new access token using refresh token
+// @Tags         Auth
+// @Accept       json
+// @Produce      json
+// @Param        request body RefreshTokenRequest true "Refresh Token"
+// @Success      200  {object}  RefreshTokenResponse
+// @Failure      401  {object}  utils.ErrorResponse
+// @Router       /auth/refresh [post]
+func (h *Handler) RefreshToken(c *gin.Context) {
+	var req RefreshTokenRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		utils.RespondError(
+			c,
+			http.StatusBadRequest,
+			"AUTH_400",
+			err,
+			gin.H{"field": map[string]string{
+				"refresh_token": "must be valid refresh token",
+			}},
+		)
+		return
+	}
+
+	res, err := h.client.RefreshToken(c.Request.Context(), &authv1.RefreshTokenRequest{
+		RefreshToken: req.RefreshToken,
+	})
+	if err != nil {
+		utils.RespondError(
+			c,
+			http.StatusUnauthorized,
+			"AUTH_401",
+			err,
+			nil,
+		)
+		return
+	}
+
+	utils.RespondSuccess(c, http.StatusOK, gin.H{"token": res}, nil)
+}

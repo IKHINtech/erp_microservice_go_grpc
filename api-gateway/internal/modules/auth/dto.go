@@ -22,6 +22,15 @@ type (
 		FullName string `json:"full_name"`
 	}
 
+	RefreshTokenRequest struct {
+		RefreshToken string `json:"refresh_token" binding:"required"`
+	}
+
+	RefreshTokenResponse struct {
+		AccessToken  string `json:"access_token"`
+		RefreshToken string `json:"refresh_token"`
+	}
+
 	LoginResponse struct {
 		Token string `json:"token"`
 	}

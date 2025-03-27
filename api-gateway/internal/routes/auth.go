@@ -11,5 +11,6 @@ func RegisterAuthRoutes(r *gin.Engine, authHandler *auth.Handler) {
 		authGroup.POST("/login", authHandler.Login)
 		authGroup.POST("/register", authHandler.Register)
 		authGroup.POST("/validate", authHandler.ValidateToken)
+		authGroup.POST("/refresh", authHandler.RefreshToken)
 	}
 }

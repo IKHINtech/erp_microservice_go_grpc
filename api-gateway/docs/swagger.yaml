@@ -23,6 +23,20 @@ definitions:
       token:
         type: string
     type: object
+  auth.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  auth.RefreshTokenResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
   auth.RegisterUserRequest:
     properties:
       email:
@@ -38,6 +52,17 @@ definitions:
         type: string
     required:
     - token
+    type: object
+  utils.ErrorResponse:
+    properties:
+      code:
+        description: Kode error spesifik (e.g., "AUTH_401")
+        type: string
+      details: {}
+      error:
+        type: string
+      success:
+        type: boolean
     type: object
   utils.SuccessResponse:
     properties:
@@ -89,6 +114,32 @@ paths:
           schema:
             $ref: '#/definitions/auth.ErrorResponse'
       summary: User Login
+      tags:
+      - Auth
+  /auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Get new access token using refresh token
+      parameters:
+      - description: Refresh Token
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.RefreshTokenResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      summary: Refresh Token
       tags:
       - Auth
   /auth/register:

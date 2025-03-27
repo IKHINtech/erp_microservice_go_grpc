@@ -139,7 +139,8 @@ func (s *AuthServer) RefreshToken(ctx context.Context, req *authv1.RefreshTokenR
 	}
 
 	return &authv1.RefreshTokenResponse{
-		AccessToken: newAccessToken,
-		ExpiresIn:   900,
+		AccessToken:  newAccessToken,
+		RefreshToken: req.RefreshToken,
+		ExpiresIn:    900,
 	}, nil
 }

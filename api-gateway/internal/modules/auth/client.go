@@ -45,6 +45,14 @@ func (c *AuthClient) Register(ctx context.Context, req *authv1.RegisterUserReque
 	return res, err
 }
 
+func (c *AuthClient) RefreshToken(ctx context.Context, req *authv1.RefreshTokenRequest) (*authv1.RefreshTokenResponse, error) {
+	res, err := c.client.RefreshToken(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return res, err
+}
+
 func (c *AuthClient) ValidateToken(ctx context.Context, token string) (*authv1.ValidateTokenResponse, error) {
 	res, err := c.client.ValidateToken(ctx, &authv1.ValidateTokenRequest{
 		Token: token,
