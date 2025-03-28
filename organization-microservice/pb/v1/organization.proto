@@ -1,0 +1,228 @@
+syntax = "proto3";
+
+package organization.v1;
+
+option go_package = "github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/pb/v1";
+
+message Organization {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string type = 4;
+  string parent_organization_id = 5;
+}
+
+message Department {
+  string id = 1;
+  string name = 3;
+  string description = 4;
+}
+
+message WorkUnit {
+    string id = 1;
+    string department_id = 2;
+    string name = 3;
+    string description = 4;
+}
+
+message Position {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message PositionHierarchy {
+    string superior_position_id = 1;
+    string subordinated_position_id = 2;
+}
+
+message CreateOrganizationRequest {
+  string name = 1;
+  string description = 2;
+  string type =3;
+  string parent_organization_id = 4;
+}
+
+message GetOrganizationRequest {
+    string id = 1;
+}
+
+message GetOrganizationResponse {
+  Organization organization = 1;
+}
+
+message ListOrganizationRequest {
+    string type = 1;
+    string parent_organization_id = 2;
+}
+
+message ListOrganizationResponse {
+  repeated Organization organizations = 1;
+}
+
+message UpdateOrganizationRequest {
+  string id = 1;
+  string name = 2;
+  string description =3;
+  string type = 4;
+  string parent_organization_id = 5;
+}
+
+message DeleteOrganizationRequest{
+    string id = 1;
+}
+
+message CreateDepartmentRequest{
+  string name = 1;
+  string description = 2;
+}
+
+message GetDepartmentRequest {
+    string id = 1;
+}
+
+message GetDepartmentResponse {
+  Department department = 1;
+}
+
+message ListDepartmentRequest {
+
+}
+
+message ListDepartmentResponse {
+    repeated Department departments = 1;
+}
+
+message UpdateDepartmentRequest{
+    string id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message DeleteDepartmentRequest {
+    string id = 1;
+}
+
+message CreateWorkUnitRequest {
+    string department_id = 2;
+    string name = 3;
+    string description = 4;
+}
+
+message GetWorkUnitRequest {
+    string id = 1;
+}
+
+message GetWorkUnitResponse{
+      WorkUnit work_unit = 1;
+}
+
+message ListWorkUnitRequest {
+    string department_id = 1;
+  }
+
+message ListWorkUnitResponse {
+  repeated WorkUnit work_units = 1;
+}
+
+message UpdateWorkUnitRequest {
+    string id = 1;
+    string department_id = 2;
+    string name = 3;
+    string description = 4; 
+}
+
+message DeleteWorkUnitRequest {
+    string id = 1;
+}
+
+message CreatePositionRequest {
+    string name = 1;
+    string description = 2;
+}
+
+message GetPositionRequest {
+    string id = 1;
+}
+
+message GetPositionResponse {
+    Position Position = 1;
+}
+
+message ListPositionRequest {
+
+}
+
+message ListPositionResponse {
+    repeated Position positions = 1;
+}
+
+message UpdatePositionRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message DeletePositionRequest {
+    string id = 1;
+}
+
+message CreatePositionHierarchyRequest {
+    string superior_position_id = 1;
+    string subordinated_position_id = 2;
+}
+
+message GetPositionHierarchyBySuperiorRequest {
+    string superior_position_id = 1;
+}
+
+message GetPositionHierarchyBySubordinatedRequest {
+    string subordinated_position_id = 1;
+}
+
+message ListPositionHierarchyResponse {
+    repeated PositionHierarchy position_hierarchy = 1;
+  }
+
+message DeletePositionHierarchyRequest {
+  string id = 1;
+}
+
+message GetPositionHierarchyResponse {
+    repeated PositionHierarchy position_hierarchy = 1;
+}
+
+service OrganizationService {
+    // Oraganization Endpoint
+    rpc CreateOrganization (CreateOrganizationRequest) returns (Organization){}
+    rpc GetOrganization (GetOrganizationRequest) returns (GetOrganizationResponse){}
+    rpc ListOrganization (ListOrganizationRequest) returns (ListOrganizationResponse){}
+    rpc UpdateOrganization (UpdateOrganizationRequest) returns (Organization){}
+    rpc DeleteOrganization (DeleteOrganizationRequest) returns (Organization){}
+
+    // Department Endpoint
+    rpc CreateDepartment (CreateDepartmentRequest) returns (Department){}
+    rpc GetDepartment (GetDepartmentRequest) returns (GetDepartmentResponse){}
+    rpc ListDepartment (ListDepartmentRequest) returns (ListDepartmentResponse){}
+    rpc UpdateDepartment (UpdateDepartmentRequest) returns (Department){}
+    rpc DeleteDepartment (DeleteDepartmentRequest) returns (Department){}
+
+    // WorkUnit Endpoint
+    rpc CreateWorkUnit (CreateWorkUnitRequest) returns (WorkUnit){}
+    rpc GetWorkUnit (GetWorkUnitRequest) returns (GetWorkUnitResponse){}
+    rpc ListWorkUnit (ListWorkUnitRequest) returns (ListWorkUnitResponse){}
+    rpc DeleteWorkUnit (DeleteWorkUnitRequest) returns (WorkUnit) {}
+
+    // Position Endpoint
+    rpc CreatePosition (CreatePositionRequest) returns (Position) {}
+    rpc GetPosition (GetPositionRequest) returns (GetPositionResponse) {}
+    rpc ListPosition (ListPositionRequest) returns (ListPositionResponse) {}
+    rpc UpdatePosition (UpdatePositionRequest) returns (Position) {}
+    rpc DeletePosition (DeletePositionRequest) returns (Position) {}
+
+    // Work Hierarchy Endpoint
+    rpc CreatePositionHierarchy (CreatePositionHierarchyRequest) returns (PositionHierarchy) {}
+    rpc GetPositionHierarchyBySuperior (GetPositionHierarchyBySuperiorRequest) returns (ListPositionHierarchyResponse) {}
+    rpc GetPositionHierarchyBySubordinated (GetPositionHierarchyBySubordinatedRequest) returns (ListPositionHierarchyResponse) {}
+    rpc DeletePositionHierarchy (DeletePositionHierarchyRequest) returns (PositionHierarchy){}
+  }

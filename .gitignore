@@ -3,6 +3,7 @@
 .env.local          # Exclude local overrides
 
 auth-microservice/.env
+organization-microservice/.env
 auth-microservice/proto/
 
 api-gateway/.env
