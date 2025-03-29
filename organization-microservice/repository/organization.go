@@ -6,7 +6,7 @@ import (
 )
 
 type OranizationRepository interface {
-	CreateOrganization(organization *models.Organization) error
+	CreateOrganization(organization *models.Organization) (*models.Organization, error)
 	GetOrganization(id string) (*models.Organization, error)
 	GetListOrganization(parentOrganizationID *string) ([]*models.Organization, error)
 	UpdateOrganization(id string, organization *models.Organization) error
@@ -23,8 +23,11 @@ func NewOrganizationRepository(db *gorm.DB) OranizationRepository {
 	}
 }
 
-func (r *organizationRepositoryImpl) CreateOrganization(organization *models.Organization) error {
-	return r.db.Create(organization).Error
+func (r *organizationRepositoryImpl) CreateOrganization(organization *models.Organization) (*models.Organization, error) {
+	if err := r.db.Create(organization).Error; err != nil {
+		return nil, err
+	}
+	return organization, nil
 }
 
 func (r *organizationRepositoryImpl) GetOrganization(id string) (*models.Organization, error) {
