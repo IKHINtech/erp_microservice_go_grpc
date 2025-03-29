@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/models"
+	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/internal/models"
 	"gorm.io/gorm"
 )
 

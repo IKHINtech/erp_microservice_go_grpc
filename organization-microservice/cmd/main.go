@@ -5,10 +5,9 @@ import (
 	"net"
 
 	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/config"
-	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/database"
+	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/internal/database"
+	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/internal/repository"
 	organizationv1 "github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/pb/v1"
-	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/repository"
-	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/service"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

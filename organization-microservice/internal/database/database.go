@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/config"
-	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/models"
+	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
