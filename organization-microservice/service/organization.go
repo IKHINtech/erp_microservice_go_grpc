@@ -22,7 +22,7 @@ func (s *OrganizationService) CreateOrganization(organization *pb.CreateOrganiza
 		Name:                 organization.Name,
 		Description:          organization.Description,
 		Type:                 organization.Type,
-		ParentOrganizationID: *organization.ParentOrganizationId,
+		ParentOrganizationID: &organization.ParentOrganizationId,
 	}
 	err := s.repo.CreateOrganization(&data)
 	return &pb.GetOrganizationResponse{}, err

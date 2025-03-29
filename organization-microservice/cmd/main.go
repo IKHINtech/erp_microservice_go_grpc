@@ -4,9 +4,11 @@ import (
 	"log"
 	"net"
 
+	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/repositories"
 	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/config"
 	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/database"
 	organizationv1 "github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/pb/v1"
+	"github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/service"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -26,8 +28,10 @@ func main() {
 	}
 
 	s := grpc.NewServer()
+	organizationRepo := repositories.NewOrganizationRepository(database.DB)
+	oranizationService := service.NewOrganizationService(organizationRepo)
 
-	organizationv1.RegisterOrganizationServiceServer(s)
+	organizationv1.RegisterOrganizationServiceServer(s, oranizationService)
 
 	reflection.Register(s)
 

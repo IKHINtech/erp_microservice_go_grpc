@@ -9,7 +9,7 @@ message Organization {
   string name = 2;
   string description = 3;
   string type = 4;
-  string parent_organization_id = 5;
+ optional string parent_organization_id = 5;
 }
 
 message Department {

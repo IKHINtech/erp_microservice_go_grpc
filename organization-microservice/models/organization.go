@@ -10,7 +10,7 @@ type Organization struct {
 	Name                 string
 	Description          string
 	Type                 string
-	ParentOrganizationID *uuid.UUID    `gorm:"type:uuid"`
+	ParentOrganizationID *string       `gorm:"type:uuid"`
 	ParentOrganization   *Organization `gorm:"foreignKey:ParentOrganizationID;references:ID"`
 	ChildrenOrganization []Organization
 }
@@ -20,7 +20,7 @@ type CreateOrganizationRequest struct {
 	Name                 string
 	Description          string
 	Type                 string
-	ParentOrganizationID uuid.UUID `gorm:"type:uuid"`
+	ParentOrganizationID string `gorm:"type:uuid"`
 }
 
 // GetOrganizationRequest model
