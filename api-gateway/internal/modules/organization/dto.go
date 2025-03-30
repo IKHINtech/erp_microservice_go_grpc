@@ -3,7 +3,7 @@ package organization
 import "github.com/google/uuid"
 
 type Organization struct {
-	id                   string        `json:"id"`
+	ID                   string        `json:"id"`
 	Name                 string        `json:"name"`
 	Description          string        `json:"description"`
 	Type                 string        `json:"type"`

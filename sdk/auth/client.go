@@ -9,12 +9,12 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-type Client struct {
+type AuthClient struct {
 	conn    *grpc.ClientConn
 	timeout time.Duration
 }
 
-func NewClient(addr string, timeoutSec int) (*Client, error) {
+func NewClient(addr string, timeoutSec int) (*AuthClient, error) {
 	conn, err := grpc.NewClient(addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(10*1024*1024)),
@@ -23,13 +23,13 @@ func NewClient(addr string, timeoutSec int) (*Client, error) {
 		return nil, err
 	}
 
-	return &Client{
+	return &AuthClient{
 		conn:    conn,
 		timeout: time.Duration(timeoutSec) * time.Second,
 	}, nil
 }
 
-func (c *Client) Login(ctx context.Context, email, password string) (*authv1.LoginResponse, error) {
+func (c *AuthClient) Login(ctx context.Context, email, password string) (*authv1.LoginResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)
 	defer cancel()
 
@@ -45,7 +45,7 @@ func (c *Client) Login(ctx context.Context, email, password string) (*authv1.Log
 	return res, nil
 }
 
-func (c *Client) Register(ctx context.Context, req *authv1.RegisterUserRequest) (*authv1.RegisterUserResponse, error) {
+func (c *AuthClient) Register(ctx context.Context, req *authv1.RegisterUserRequest) (*authv1.RegisterUserResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)
 	defer cancel()
 
@@ -57,7 +57,7 @@ func (c *Client) Register(ctx context.Context, req *authv1.RegisterUserRequest) 
 	return res, err
 }
 
-func (c *Client) ValidateToken(ctx context.Context, token string) (*authv1.ValidateTokenResponse, error) {
+func (c *AuthClient) ValidateToken(ctx context.Context, token string) (*authv1.ValidateTokenResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)
 	defer cancel()
 	client := authv1.NewAuthServiceClient(c.conn)
@@ -70,7 +70,7 @@ func (c *Client) ValidateToken(ctx context.Context, token string) (*authv1.Valid
 	return res, nil
 }
 
-func (c *Client) AssignRoleToUser(ctx context.Context, req *authv1.AssignRoleRequest) (*authv1.AssignRoleResponse, error) {
+func (c *AuthClient) AssignRoleToUser(ctx context.Context, req *authv1.AssignRoleRequest) (*authv1.AssignRoleResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)
 	defer cancel()
 

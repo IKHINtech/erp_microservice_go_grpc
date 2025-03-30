@@ -4,15 +4,14 @@ import (
 	"context"
 	"log"
 
-	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/gen-proto/proto/auth/v1"
-
+	authSdk "github.com/IKHINtech/erp_microservice_go_grpc/sdk/auth"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 )
 
 // AuthInterceptor adalah gRPC middleware untuk validasi token
-func AuthInterceptor(authClient authv1.AuthServiceClient) grpc.UnaryServerInterceptor {
+func AuthInterceptor(authClient *authSdk.AuthClient) grpc.UnaryServerInterceptor {
 	return func(
 		ctx context.Context,
 		req any,
@@ -31,7 +30,7 @@ func AuthInterceptor(authClient authv1.AuthServiceClient) grpc.UnaryServerInterc
 		}
 
 		// Panggil auth-microservice untuk validasi token
-		res, err := authClient.ValidateToken(ctx, &authv1.ValidateTokenRequest{Token: token[0]})
+		res, err := authClient.ValidateToken(ctx, token[0])
 		log.Println("res", res)
 		log.Println("err", err)
 		//TODO: pastikan lagi kenapa tidak ada return nya

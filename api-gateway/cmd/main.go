@@ -56,6 +56,7 @@ func main() {
 
 	routes.RegisterAuthRoutes(r, authHandler)
 	routes.RegisterOrganizationRoutes(r, organizationHandler)
+	routes.RegisterDepartmentRoutes(r, organizationHandler)
 
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.Set("response", "API GATEWAY")
