@@ -58,7 +58,21 @@ func main() {
 	repoDepartment := repository.NewDepartmentRepository(database.DB)
 	serviceDepartment := service.NewDepartmentService(repoDepartment)
 
-	organizationv1.RegisterOrganizationServiceServer(s, handler.NewOrganizationServer(serviceOrganization, serviceDepartment))
+	// di position
+	repoPosition := repository.NewPositionRepository(database.DB)
+	servicePosition := service.NewPositionService(repoPosition)
+
+	// di work unit
+	repoWorkUnit := repository.NewWorkUnitRepository(database.DB)
+	serviceWorkUnit := service.NewWorkUnitService(repoWorkUnit)
+
+	// di position hierarchy
+	repoPositionHierarchy := repository.NewPositionHierarchyRepository(database.DB)
+	servicePositionHierarchy := service.NewPositionHierarchyService(repoPositionHierarchy)
+
+	organizationServer := handler.NewOrganizationServer(serviceOrganization, serviceDepartment, serviceWorkUnit, servicePositionHierarchy, servicePosition)
+
+	organizationv1.RegisterOrganizationServiceServer(s, &organizationServer)
 
 	reflection.Register(s)
 
