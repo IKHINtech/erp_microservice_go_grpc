@@ -16,6 +16,7 @@ type Config struct {
 	DBName     string `mapstructure:"DB_NAME"`
 	DBSSLMode  string `mapstructure:"DB_SSLMODE"`
 	PORT       string `mapstructure:"PORT"`
+	AUTH_PORT  string `mapstructure:"AUTH_PORT"`
 }
 
 var CFG Config

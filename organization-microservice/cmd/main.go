@@ -36,7 +36,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	authConn, err := grpc.NewClient("0.0.0.0:50051",
+	authConn, err := grpc.NewClient("0.0.0.0:"+cfg.AUTH_PORT,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(10*1024*1024)),
 	)

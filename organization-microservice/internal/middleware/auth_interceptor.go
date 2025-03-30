@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"log"
 
 	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/gen-proto/proto/auth/v1"
 
@@ -31,6 +32,9 @@ func AuthInterceptor(authClient authv1.AuthServiceClient) grpc.UnaryServerInterc
 
 		// Panggil auth-microservice untuk validasi token
 		res, err := authClient.ValidateToken(ctx, &authv1.ValidateTokenRequest{Token: token[0]})
+		log.Println("res", res)
+		log.Println("err", err)
+		//TODO: pastikan lagi kenapa tidak ada return nya
 		if err != nil || !res.IsValid {
 			return nil, status.Errorf(401, "invalid token")
 		}

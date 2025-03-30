@@ -202,6 +202,33 @@ paths:
       summary: Validate token
       tags:
       - Auth
+  /organization:
+    get:
+      consumes:
+      - application/json
+      description: List Organization
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      summary: List Organization
+      tags:
+      - Organization
 securityDefinitions:
   BearerAuth:
     in: header
