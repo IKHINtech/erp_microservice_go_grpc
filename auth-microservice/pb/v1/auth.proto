@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "github.com/IKHINtech/erp_microservice_go_grpc/proto/auth/v1";
+
+service AuthService {
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse);
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc AssignRoleToUser (AssignRoleRequest) returns (AssignRoleResponse);
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+    string access_token = 1;
+    string refresh_token= 2;
+    int64 expires_in = 3;
+    string user_id = 4;
+}
+
+message RegisterUserRequest {
+    string email = 1;
+    string password = 2;
+    string full_name = 3;
+}
+
+message RegisterUserResponse {
+    string user_id= 1;
+}
+
+message ValidateTokenRequest {
+    string token = 1;
+}
+
+message ValidateTokenResponse {
+    bool is_valid = 1;
+    string user_id = 2;
+    repeated string roles = 3;
+}
+
+message AssignRoleRequest {
+    string user_id = 1;
+    string role_name = 2; // Contoh : "admin", "employee"
+}
+
+message AssignRoleResponse {
+  bool success = 1 ;
+}
+
+message RefreshTokenRequest {
+    string refresh_token = 1;
+  }
+
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token= 2;
+    int64 expires_in = 3;
+}

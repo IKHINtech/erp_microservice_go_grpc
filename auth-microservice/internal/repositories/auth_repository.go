@@ -13,6 +13,7 @@ type AuthRepository interface {
 	AssignRoleToUser(userID, roleID string) error
 	GetUsersByRole(roleID string) ([]*models.User, error)
 	GetUserRoles(userID string) ([]string, error)
+	Migrate() error
 }
 
 type authRepository struct {

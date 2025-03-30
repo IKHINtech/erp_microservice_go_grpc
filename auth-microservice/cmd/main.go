@@ -31,10 +31,10 @@ func main() {
 	rateLimit := middleware.RateLimitInterceptor(10, time.Second)
 
 	authRepo := repositories.NewAuthRepository(db)
-	// if err := authRepo.Migrate(); err != nil {
-	// 	log.Fatal("Gagal migrate database:", err)
-	// }
-	//
+	if err := authRepo.Migrate(); err != nil {
+		log.Fatal("Gagal migrate database:", err)
+	}
+
 	lis, err := net.Listen("tcp", "0.0.0.0:"+cfg.AuthPort) // Ganti localhost ke 0.0.0.0
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

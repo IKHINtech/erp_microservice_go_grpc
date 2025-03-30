@@ -5,7 +5,7 @@ import (
 )
 
 type BaseModel struct {
-	ID        string `gorm:"type:uuid;primaryKey;default:uuid_generate_v4()"`
+	ID        string `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

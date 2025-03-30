@@ -12,7 +12,6 @@ type Organization struct {
 	Type                 string
 	ParentOrganizationID *string       `gorm:"type:uuid"`
 	ParentOrganization   *Organization `gorm:"foreignKey:ParentOrganizationID;references:ID"`
-	ChildrenOrganization []Organization
 }
 
 // CreateOrganizationRequest model
