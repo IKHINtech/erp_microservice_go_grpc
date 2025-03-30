@@ -8,13 +8,17 @@ import (
 
 type OrganizationService interface {
 	CreateOrganization(data *pb.CreateOrganizationRequest) (*pb.Organization, error)
+	UpdateOrganization(data *pb.UpdateOrganizationRequest) (*pb.Organization, error)
+	GetOrganization(data *pb.GetOrganizationRequest) (*pb.GetOrganizationResponse, error)
+	ListOrganization(data *pb.ListOrganizationRequest) (*pb.ListOrganizationResponse, error)
+	DeleteOrganization(data *pb.DeleteOrganizationRequest) error
 }
 
 type organizationServiceImpl struct {
-	repo repository.OranizationRepository
+	repo repository.OrganizationRepository
 }
 
-func NewOrganizationService(repo repository.OranizationRepository) OrganizationService {
+func NewOrganizationService(repo repository.OrganizationRepository) OrganizationService {
 	return &organizationServiceImpl{
 		repo: repo,
 	}
@@ -41,7 +45,36 @@ func (s *organizationServiceImpl) GetOrganization(organization *pb.GetOrganizati
 	return result, err
 }
 
-// GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
-// ListOrganization(context.Context, *ListOrganizationRequest) (*ListOrganizationResponse, error)
-// UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*Organization, error)
-// DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*Organization, error)
+func (s *organizationServiceImpl) ListOrganization(organization *pb.ListOrganizationRequest) (*pb.ListOrganizationResponse, error) {
+	res, err := s.repo.GetListOrganization(nil)
+	if err != nil {
+		return nil, err
+	}
+	organizationsProto := make([]*pb.Organization, len(res))
+	for i, organization := range res {
+		organizationsProto[i] = dto.OrganizationToProto(organization)
+	}
+	result := &pb.ListOrganizationResponse{
+		Organizations: organizationsProto,
+	}
+	return result, err
+}
+
+func (s *organizationServiceImpl) UpdateOrganization(organization *pb.UpdateOrganizationRequest) (*pb.Organization, error) {
+	payload := dto.UpdateOrganizationRequestToModel(organization)
+	updatedOrganization, err := s.repo.UpdateOrganization(organization.Id, payload)
+	if err != nil {
+		return nil, err
+	}
+	result := dto.OrganizationToProto(updatedOrganization)
+	return result, nil
+
+}
+
+func (s *organizationServiceImpl) DeleteOrganization(organization *pb.DeleteOrganizationRequest) error {
+	if err := s.repo.DeleteOrganization(organization.Id); err != nil {
+		return err
+	}
+	return nil
+
+}

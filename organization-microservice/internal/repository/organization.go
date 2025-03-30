@@ -5,11 +5,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type OranizationRepository interface {
+type OrganizationRepository interface {
 	CreateOrganization(organization *models.Organization) (*models.Organization, error)
 	GetOrganization(id string) (*models.Organization, error)
 	GetListOrganization(parentOrganizationID *string) ([]*models.Organization, error)
-	UpdateOrganization(id string, organization *models.Organization) error
+	UpdateOrganization(id string, organization *models.Organization) (*models.Organization, error)
 	DeleteOrganization(id string) error
 }
 
@@ -17,7 +17,7 @@ type organizationRepositoryImpl struct {
 	db *gorm.DB
 }
 
-func NewOrganizationRepository(db *gorm.DB) OranizationRepository {
+func NewOrganizationRepository(db *gorm.DB) OrganizationRepository {
 	return &organizationRepositoryImpl{
 		db: db,
 	}
@@ -46,8 +46,9 @@ func (r *organizationRepositoryImpl) GetListOrganization(parentOrganizationID *s
 	return organizations, err
 }
 
-func (r *organizationRepositoryImpl) UpdateOrganization(id string, organization *models.Organization) error {
-	return r.db.Model(&models.Organization{}).Where("id = ?", id).Updates(organization).Error
+func (r *organizationRepositoryImpl) UpdateOrganization(id string, organization *models.Organization) (*models.Organization, error) {
+	err := r.db.Model(&models.Organization{}).Where("id = ?", id).Updates(organization).Error
+	return organization, err
 }
 
 func (r *organizationRepositoryImpl) DeleteOrganization(id string) error {
