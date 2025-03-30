@@ -9,8 +9,9 @@ import (
 )
 
 type Config struct {
-	GATEWAY_PORT string
-	AUTH_PORT    string
+	GATEWAY_PORT      string
+	AUTH_PORT         string
+	ORGANIZATION_PORT string
 }
 
 func LoadConfig() (config Config, err error) {

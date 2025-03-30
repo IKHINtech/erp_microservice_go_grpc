@@ -7,6 +7,7 @@ import (
 	"github.com/IKHINtech/erp_api_gateway/docs"
 	"github.com/IKHINtech/erp_api_gateway/internal/middleware"
 	"github.com/IKHINtech/erp_api_gateway/internal/modules/auth"
+	"github.com/IKHINtech/erp_api_gateway/internal/modules/organization"
 	"github.com/IKHINtech/erp_api_gateway/internal/routes"
 	"github.com/gin-gonic/gin"
 
@@ -41,13 +42,20 @@ func main() {
 		log.Fatalf("Failed to connect to auth service: %v", err)
 	}
 
+	organizationClient, err := organization.NewOrganizationClient("0.0.0.0:" + cfg.ORGANIZATION_PORT)
+	if err != nil {
+		log.Fatalf("Failed to connect to auth service: %v", err)
+	}
+
 	r := gin.Default()
 
 	r.Use(middleware.ErrorHandler())
 
 	authHandler := auth.NewHandler(authClient)
+	organizationHandler := organization.NewOrganizationHandler(organizationClient)
 
 	routes.RegisterAuthRoutes(r, authHandler)
+	routes.RegisterOrganizationRoutes(r, organizationHandler)
 
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.Set("response", "API GATEWAY")
