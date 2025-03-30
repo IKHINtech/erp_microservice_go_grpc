@@ -30,8 +30,8 @@ run-organiation:
 	cd organization-microservice && go run cmd/main.go
 
 run-all:
-	run-auth
-	run-api-gateway
+	cd auth-microservice && go run cmd/main.go
+	cd api-gateway && go run cmd/main.go
 
 generate-docs:
 	cd api-gateway && swag init -g cmd/main.go -o docs
