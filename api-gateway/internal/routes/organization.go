@@ -7,7 +7,7 @@ import (
 )
 
 func RegisterOrganizationRoutes(r *gin.Engine, organizationHandler *organization.OrganizationHandler) {
-	authGroup := r.Group("/organization")
+	authGroup := r.Group("/organization", middleware.AuthMiddleware())
 	{
 		authGroup.GET("/", organizationHandler.ListOrganizations)
 	}
@@ -16,7 +16,7 @@ func RegisterOrganizationRoutes(r *gin.Engine, organizationHandler *organization
 func RegisterDepartmentRoutes(r *gin.Engine, organizationHandler *organization.OrganizationHandler) {
 	authGroup := r.Group("/department", middleware.AuthMiddleware())
 	{
-		authGroup.GET("/", organizationHandler.GetOrganization)
+		authGroup.GET("/", organizationHandler.GetDepartments)
 		authGroup.POST("/", organizationHandler.CreateDepartment)
 	}
 }

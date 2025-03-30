@@ -124,3 +124,31 @@ func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 
 	utils.RespondSuccess(c, http.StatusOK, res, nil)
 }
+
+func (h *OrganizationHandler) GetDepartments(c *gin.Context) {
+	ctx, exists := c.Get("grpc_ctx")
+	if !exists {
+		utils.RespondError(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			errors.New("missing context"),
+			nil,
+		)
+		return
+	}
+
+	res, err := h.client.client.ListDepartment(ctx.(context.Context), nil)
+	if err != nil {
+		utils.RespondError(
+			c,
+			http.StatusBadRequest,
+			"BAD_REQUEST",
+			err,
+			nil,
+		)
+		return
+	}
+
+	utils.RespondSuccess(c, http.StatusOK, res, nil)
+}
