@@ -200,7 +200,7 @@
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "List Departments",
@@ -244,6 +244,11 @@
         },
         "/organization": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "List Organization",
                 "consumes": [
                     "application/json"

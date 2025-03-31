@@ -227,7 +227,7 @@ paths:
           schema:
             $ref: '#/definitions/utils.ErrorResponse'
       security:
-      - ApiKeyAuth: []
+      - Bearer: []
       summary: List Departments
       tags:
       - Organization
@@ -255,6 +255,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - Bearer: []
       summary: List Organization
       tags:
       - Organization

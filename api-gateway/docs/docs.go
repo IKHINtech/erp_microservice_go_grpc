@@ -206,7 +206,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "List Departments",
@@ -250,6 +250,11 @@ const docTemplate = `{
         },
         "/organization": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "List Organization",
                 "consumes": [
                     "application/json"
