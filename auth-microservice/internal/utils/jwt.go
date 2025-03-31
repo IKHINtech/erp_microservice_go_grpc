@@ -27,9 +27,10 @@ func GenerateJWT(userID, tokenType, secret string, expiry time.Duration) (string
 }
 
 func ValidateJWT(tokenString string, secret string) (*Claims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (any, error) {
 		return []byte(secret), nil
 	})
+
 	if err != nil {
 		return nil, err
 	}

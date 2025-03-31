@@ -9,7 +9,7 @@ import (
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/models"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/repositories"
 	"github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/internal/utils"
-	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/gen-proto/proto/auth/v1"
+	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/pb/v1"
 	"golang.org/x/crypto/bcrypt"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -62,7 +62,7 @@ func (s *AuthServer) RegisterUser(ctx context.Context, req *authv1.RegisterUserR
 func (s *AuthServer) ValidateToken(ctx context.Context, req *authv1.ValidateTokenRequest) (*authv1.ValidateTokenResponse, error) {
 	claims, err := utils.ValidateJWT(req.Token, config.CFG.JWTSecret)
 	if err != nil {
-		return &authv1.ValidateTokenResponse{IsValid: false}, nil
+		return &authv1.ValidateTokenResponse{IsValid: false}, err
 	}
 
 	// Dapatkan roles dari database
@@ -106,7 +106,7 @@ func (s *AuthServer) Login(ctx context.Context, req *authv1.LoginRequest) (*auth
 		return nil, status.Error(codes.Unauthenticated, "password salah")
 	}
 
-	accessToken, err := utils.GenerateJWT(user.ID.String(), "access", config.CFG.JWTSecret, 15*time.Minute)
+	accessToken, err := utils.GenerateJWT(user.ID.String(), "access", config.CFG.JWTSecret, 24*time.Hour)
 	if err != nil {
 		return nil, status.Error(codes.Internal, "failed to generate token")
 	}
@@ -133,7 +133,7 @@ func (s *AuthServer) RefreshToken(ctx context.Context, req *authv1.RefreshTokenR
 		return nil, status.Error(codes.Unauthenticated, "not a refresh token")
 	}
 
-	newAccessToken, err := utils.GenerateJWT(claims.UserID, "access", config.CFG.JWTSecret, 15*time.Minute)
+	newAccessToken, err := utils.GenerateJWT(claims.UserID, "access", config.CFG.JWTSecret, 24*time.Hour)
 	if err != nil {
 		return nil, status.Error(codes.Internal, "failed to generate token")
 	}

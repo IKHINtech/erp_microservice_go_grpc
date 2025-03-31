@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/IKHINtech/erp_api_gateway/internal/utils"
-	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/gen-proto/proto/auth/v1"
+	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/pb/v1"
 	"github.com/gin-gonic/gin"
 )
 

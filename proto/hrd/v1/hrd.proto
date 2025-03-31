@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package hrd.v1;
-
-option go_package = "github.com/IKHINtech/erp_microservice_go_grpc/proto/hrd/v1";
-
-service HrdService {
-    rpc // TODO: lanjutkan disini untuk membuat protos file
-  }
