@@ -2,7 +2,8 @@ package middleware
 
 import (
 	"context"
-	"log"
+	"fmt"
+	"strings"
 
 	authSdk "github.com/IKHINtech/erp_microservice_go_grpc/sdk/auth"
 	"google.golang.org/grpc"
@@ -24,16 +25,30 @@ func AuthInterceptor(authClient *authSdk.AuthClient) grpc.UnaryServerInterceptor
 			return nil, status.Errorf(401, "metadata not found")
 		}
 
-		token := md["authorization"]
-		if len(token) == 0 {
+		authorization := md["authorization"]
+		if len(authorization) == 0 {
 			return nil, status.Errorf(401, "token not provided")
 		}
 
+		// Ambil nilai pertama dari slice
+		authHeader := authorization[0]
+
+		// Pisahkan "Bearer" dari token
+		parts := strings.SplitN(authHeader, " ", 2)
+
+		// Validasi apakah formatnya benar
+		if len(parts) != 2 || parts[0] != "Bearer" {
+			fmt.Println("Invalid Authorization header format")
+
+			return nil, status.Errorf(401, "invalid authorization header format")
+		}
+
+		// Ambil token
+		token := parts[1]
+		fmt.Println("Extracted Token:", token)
+
 		// Panggil auth-microservice untuk validasi token
-		res, err := authClient.ValidateToken(ctx, token[0])
-		log.Println("res", res)
-		log.Println("err", err)
-		//TODO: pastikan lagi kenapa tidak ada return nya
+		res, err := authClient.ValidateToken(ctx, token)
 		if err != nil || !res.IsValid {
 			return nil, status.Errorf(401, "invalid token")
 		}

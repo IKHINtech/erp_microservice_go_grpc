@@ -202,6 +202,35 @@ paths:
       summary: Validate token
       tags:
       - Auth
+  /department:
+    get:
+      consumes:
+      - application/json
+      description: List Departments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List Departments
+      tags:
+      - Organization
   /organization:
     get:
       consumes:
@@ -230,7 +259,8 @@ paths:
       tags:
       - Organization
 securityDefinitions:
-  BearerAuth:
+  Bearer:
+    description: Type "Bearer" followed by a space and JWT token.
     in: header
     name: Authorization
     type: apiKey

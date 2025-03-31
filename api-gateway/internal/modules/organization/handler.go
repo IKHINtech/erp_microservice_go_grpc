@@ -50,6 +50,7 @@ func (h *OrganizationHandler) DeleteOrganization(c *gin.Context) {
 // @Tags Organization
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Success 200 {object} utils.SuccessResponse
 // @Failure 400 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
@@ -125,6 +126,17 @@ func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 	utils.RespondSuccess(c, http.StatusOK, res, nil)
 }
 
+// @Summary List Departments
+// @Description List Departments
+// @Tags Organization
+// @Accept json
+// @Produce json
+// @Security Bearer
+// @Success 200 {object} utils.SuccessResponse
+// @Failure 400 {object} utils.ErrorResponse
+// @Failure 401 {object} utils.ErrorResponse
+// @Failure 500 {object} utils.ErrorResponse
+// @Router /department [get]
 func (h *OrganizationHandler) GetDepartments(c *gin.Context) {
 	ctx, exists := c.Get("grpc_ctx")
 	if !exists {
