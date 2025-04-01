@@ -53,6 +53,13 @@ definitions:
     required:
     - token
     type: object
+  organization.CreateDepartmentRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    type: object
   utils.ErrorResponse:
     properties:
       code:
@@ -258,6 +265,38 @@ paths:
       security:
       - Bearer: []
       summary: List Organization
+      tags:
+      - Organization
+  /organization/department:
+    post:
+      consumes:
+      - application/json
+      description: Create Department
+      parameters:
+      - description: Department
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/organization.CreateDepartmentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Create Departments
       tags:
       - Organization
 securityDefinitions:

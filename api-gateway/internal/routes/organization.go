@@ -14,7 +14,7 @@ func RegisterOrganizationRoutes(r *gin.Engine, organizationHandler *organization
 }
 
 func RegisterDepartmentRoutes(r *gin.Engine, organizationHandler *organization.OrganizationHandler) {
-	authGroup := r.Group("/department", middleware.AuthMiddleware())
+	authGroup := r.Group("organization/department", middleware.AuthMiddleware())
 	{
 		authGroup.GET("/", organizationHandler.GetDepartments)
 		authGroup.POST("/", organizationHandler.CreateDepartment)

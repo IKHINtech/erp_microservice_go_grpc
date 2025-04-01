@@ -85,6 +85,17 @@ func (h *OrganizationHandler) ListOrganizations(c *gin.Context) {
 
 }
 
+// @Summary Create Departments
+// @Description Create Department
+// @Tags Organization
+// @Accept json
+// @Produce json
+// @Security Bearer
+// @Success 200 {object} utils.SuccessResponse
+// @Param data body CreateDepartmentRequest true "Department"
+// @Failure 400 {object} utils.ErrorResponse
+// @Failure 401 {object} utils.ErrorResponse
+// @Router /organization/department [post]
 func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 
 	ctx, exists := c.Get("grpc_ctx")
