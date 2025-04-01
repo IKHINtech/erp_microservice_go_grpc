@@ -7,8 +7,8 @@ import (
 
 func PositionHierarchyToProto(data *models.PositionHierarchy) *pb.PositionHierarchy {
 	return &pb.PositionHierarchy{
-		SuperiorPositionId:     *data.SuperiorPositionID,
-		SubordinatedPositionId: *data.SubordinatedPositionID,
+		SuperiorPositionId:     data.SuperiorPositionID,
+		SubordinatedPositionId: data.SubordinatedPositionID,
 	}
 }
 
@@ -20,7 +20,7 @@ func GetPositionHierarchyProtoToResponse(data []*pb.PositionHierarchy) *pb.GetPo
 
 func CreatePositionHierarchyRequestToModel(data *pb.CreatePositionHierarchyRequest) *models.PositionHierarchy {
 	return &models.PositionHierarchy{
-		SuperiorPositionID:     &data.SuperiorPositionId,
-		SubordinatedPositionID: &data.SubordinatedPositionId,
+		SuperiorPositionID:     data.SuperiorPositionId,
+		SubordinatedPositionID: data.SubordinatedPositionId,
 	}
 }

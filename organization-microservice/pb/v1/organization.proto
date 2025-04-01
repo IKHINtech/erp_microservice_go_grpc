@@ -32,15 +32,15 @@ message Position {
 }
 
 message PositionHierarchy {
-    string superior_position_id = 1;
-    string subordinated_position_id = 2;
+  optional string superior_position_id = 1;
+  optional string subordinated_position_id = 2;
 }
 
 message CreateOrganizationRequest {
   string name = 1;
   string description = 2;
   string type =3;
-  string parent_organization_id = 4;
+  optional string parent_organization_id = 4;
 }
 
 message GetOrganizationRequest {
@@ -52,8 +52,8 @@ message GetOrganizationResponse {
 }
 
 message ListOrganizationRequest {
-    string type = 1;
-    string parent_organization_id = 2;
+  optional string type = 1;
+  optional string parent_organization_id = 2;
 }
 
 message ListOrganizationResponse {
@@ -65,7 +65,7 @@ message UpdateOrganizationRequest {
   string name = 2;
   string description =3;
   string type = 4;
-  string parent_organization_id = 5;
+  optional string parent_organization_id = 5;
 }
 
 message DeleteOrganizationRequest{
@@ -129,7 +129,7 @@ message UpdateWorkUnitRequest {
     string id = 1;
     string department_id = 2;
     string name = 3;
-    string description = 4; 
+    string description = 4;
 }
 
 message DeleteWorkUnitRequest {
@@ -168,8 +168,8 @@ message DeletePositionRequest {
 }
 
 message CreatePositionHierarchyRequest {
-    string superior_position_id = 1;
-    string subordinated_position_id = 2;
+    optional string superior_position_id = 1;
+    optional string subordinated_position_id = 2;
 }
 
 message GetPositionHierarchyBySuperiorRequest {

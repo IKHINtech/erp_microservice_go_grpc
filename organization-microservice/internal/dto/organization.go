@@ -12,18 +12,13 @@ func GetOrganizationProtoToResponse(data *pb.Organization) *pb.GetOrganizationRe
 }
 
 func OrganizationToProto(organization *models.Organization) *pb.Organization {
-	var parrentID string // TODO: nanti ini bakal diubah ke nullable
-
-	if organization.ParentOrganizationID != nil {
-		parrentID = *organization.ParentOrganizationID
-	}
 
 	return &pb.Organization{
 		Id:                   organization.ID,
 		Name:                 organization.Name,
 		Description:          organization.Description,
 		Type:                 organization.Type,
-		ParentOrganizationId: parrentID,
+		ParentOrganizationId: organization.ParentOrganizationID,
 	}
 }
 
@@ -32,7 +27,7 @@ func CreateOrganizationRequestToModel(organization *pb.CreateOrganizationRequest
 		Name:                 organization.Name,
 		Description:          organization.Description,
 		Type:                 organization.Type,
-		ParentOrganizationID: &organization.ParentOrganizationId, // TODO: nanti ini bakal diubah ke nullable
+		ParentOrganizationID: organization.ParentOrganizationId,
 	}
 }
 
@@ -41,7 +36,7 @@ func UpdateOrganizationRequestToModel(organization *pb.UpdateOrganizationRequest
 		Name:                 organization.Name,
 		Description:          organization.Description,
 		Type:                 organization.Type,
-		ParentOrganizationID: &organization.ParentOrganizationId, // TODO: nanti ini bakal diubah ke nullable
+		ParentOrganizationID: organization.ParentOrganizationId,
 	}
 	data.ID = organization.Id
 	return &data
