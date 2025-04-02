@@ -59,6 +59,9 @@ definitions:
         type: string
       name:
         type: string
+    required:
+    - description
+    - name
     type: object
   utils.ErrorResponse:
     properties:
@@ -209,35 +212,6 @@ paths:
       summary: Validate token
       tags:
       - Auth
-  /department:
-    get:
-      consumes:
-      - application/json
-      description: List Departments
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/utils.SuccessResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/utils.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/utils.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/utils.ErrorResponse'
-      security:
-      - Bearer: []
-      summary: List Departments
-      tags:
-      - Organization
   /organization:
     get:
       consumes:
@@ -268,6 +242,34 @@ paths:
       tags:
       - Organization
   /organization/department:
+    get:
+      consumes:
+      - application/json
+      description: List Departments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: List Departments
+      tags:
+      - Organization
     post:
       consumes:
       - application/json

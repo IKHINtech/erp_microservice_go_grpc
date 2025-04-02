@@ -7,19 +7,30 @@ import (
 
 	"github.com/IKHINtech/erp_api_gateway/internal/utils"
 	"github.com/gin-gonic/gin"
+
+	orgClient "github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/client"
+	organizationv1 "github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/pb/v1"
 )
 
 type OrganizationHandler struct {
-	client *OrganizationClient
+	client *orgClient.OrganizationClient
 }
 
-func NewOrganizationHandler(client *OrganizationClient) *OrganizationHandler {
+func NewOrganizationHandler(client *orgClient.OrganizationClient) *OrganizationHandler {
 	return &OrganizationHandler{client: client}
 }
 
 func (h *OrganizationHandler) GetOrganization(c *gin.Context) {
-	var data GetOrganizationRequest
-	res, err := h.client.GetOrganization(c, data.ID.String())
+	// baca param :id
+	id := c.Param("id")
+
+	if id == "" {
+		// jika id tidak ada
+		utils.RespondError(c, http.StatusBadRequest, "BAD_REQUEST", errors.New("id is required"), nil)
+	}
+
+	data := organizationv1.GetOrganizationRequest{Id: id}
+	res, err := h.client.GetOrganization(c, &data)
 
 	if err != nil {
 		utils.RespondError(
@@ -68,7 +79,7 @@ func (h *OrganizationHandler) ListOrganizations(c *gin.Context) {
 		)
 		return
 	}
-	data, err := h.client.GetOrganizations(ctx.(context.Context))
+	data, err := h.client.ListOrganization(ctx.(context.Context))
 
 	if err != nil {
 		utils.RespondError(
@@ -121,7 +132,14 @@ func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 		)
 		return
 	}
-	res, err := h.client.CreateDepartment(ctx.(context.Context), data)
+
+	// buat payload
+	payload := organizationv1.CreateOrganizationRequest{
+		Name:        data.Name,
+		Description: data.Description,
+	}
+
+	res, err := h.client.CreateDepartment(ctx.(context.Context), &payload)
 
 	if err != nil {
 		utils.RespondError(
@@ -147,7 +165,7 @@ func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 // @Failure 400 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
 // @Failure 500 {object} utils.ErrorResponse
-// @Router /department [get]
+// @Router /organization/department [get]
 func (h *OrganizationHandler) GetDepartments(c *gin.Context) {
 	ctx, exists := c.Get("grpc_ctx")
 	if !exists {
@@ -161,7 +179,7 @@ func (h *OrganizationHandler) GetDepartments(c *gin.Context) {
 		return
 	}
 
-	res, err := h.client.client.ListDepartment(ctx.(context.Context), nil)
+	res, err := h.client.ListDepartment(ctx.(context.Context))
 	if err != nil {
 		utils.RespondError(
 			c,

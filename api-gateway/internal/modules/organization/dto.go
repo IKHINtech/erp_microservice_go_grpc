@@ -21,7 +21,7 @@ type CreateOrganizationRequest struct {
 
 // GetOrganizationRequest model
 type GetOrganizationRequest struct {
-	ID uuid.UUID `gorm:"type:uuid"`
+	ID string `json:"id" binding:"required"`
 }
 
 // GetOrganizationResponse model
@@ -56,8 +56,8 @@ type DeleteOrganizationRequest struct {
 
 // CreateDepartmentRequest model
 type CreateDepartmentRequest struct {
-	Name        string
-	Description string
+	Name        string `json:"name" binding:"required"`
+	Description string `json:"description" binding:"required"`
 }
 
 // GetDepartmentRequest model

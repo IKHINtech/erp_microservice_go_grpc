@@ -17,18 +17,19 @@ import (
 
 	"github.com/IKHINtech/erp_api_gateway/internal/modules/auth"
 	"github.com/IKHINtech/erp_api_gateway/internal/modules/organization"
+
 	authClient "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/client"
+	orgClient "github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/client"
 )
 
 func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	// Register routes here
-
 	authClient, err := authClient.NewClient("0.0.0.0:"+cfg.AUTH_PORT, 10)
 	if err != nil {
 		log.Fatalf("Failed to connect to auth service: %v", err)
 	}
 
-	organizationClient, err := organization.NewOrganizationClient("0.0.0.0:" + cfg.ORGANIZATION_PORT)
+	organizationClient, err := orgClient.NewOrganizationClient("0.0.0.0:"+cfg.ORGANIZATION_PORT, 10)
 	if err != nil {
 		log.Fatalf("Failed to connect to auth service: %v", err)
 	}
