@@ -2,19 +2,11 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	config "github.com/IKHINtech/erp_api_gateway/config"
-	"github.com/IKHINtech/erp_api_gateway/docs"
 	"github.com/IKHINtech/erp_api_gateway/internal/middleware"
-	"github.com/IKHINtech/erp_api_gateway/internal/modules/auth"
-	"github.com/IKHINtech/erp_api_gateway/internal/modules/organization"
-	"github.com/IKHINtech/erp_api_gateway/internal/routes"
-	"github.com/IKHINtech/erp_api_gateway/internal/utils"
+	"github.com/IKHINtech/erp_api_gateway/router"
 	"github.com/gin-gonic/gin"
-
-	swaggerfiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 //	@title			 API Gateway Documentation
@@ -40,40 +32,15 @@ func main() {
 	if err != nil {
 		log.Fatal("Gagal load config:", err)
 	}
-	authClient, err := auth.NewAuthClient("0.0.0.0:" + cfg.AUTH_PORT)
-	if err != nil {
-		log.Fatalf("Failed to connect to auth service: %v", err)
-	}
-
-	organizationClient, err := organization.NewOrganizationClient("0.0.0.0:" + cfg.ORGANIZATION_PORT)
-	if err != nil {
-		log.Fatalf("Failed to connect to auth service: %v", err)
-	}
 
 	r := gin.Default()
 
 	r.Use(middleware.ErrorHandler())
 
-	authHandler := auth.NewHandler(authClient)
-	organizationHandler := organization.NewOrganizationHandler(organizationClient)
+	router.RegisterRoutes(r, &cfg)
 
-	routes.RegisterAuthRoutes(r, authHandler)
-	routes.RegisterOrganizationRoutes(r, organizationHandler)
-	routes.RegisterDepartmentRoutes(r, organizationHandler)
-
-	r.GET("/", func(ctx *gin.Context) {
-		utils.RespondSuccess(ctx, http.StatusOK, "API Gateway", nil)
-	})
-	r.NoRoute(func(c *gin.Context) {
-		utils.RespondError(
-			c, http.StatusNotFound, "NOT_FOUND", nil, nil,
-		)
-	})
-
-	ginSwagger.WrapHandler(swaggerfiles.Handler)
-	docs.SwaggerInfo.BasePath = "/"
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	if err := r.Run(":" + cfg.GATEWAY_PORT); err != nil {
 		log.Fatal(err)
 	}
+
 }

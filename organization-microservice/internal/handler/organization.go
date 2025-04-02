@@ -7,10 +7,6 @@ import (
 	pb "github.com/IKHINtech/erp_microservice_go_grpc/organization-microservice/pb/v1"
 )
 
-// {
-// 	mustEmbedUnimplementedOrganizationServiceServer()
-// }
-
 type OrganizationServer struct {
 	pb.UnimplementedOrganizationServiceServer
 	organizationService      service.OrganizationService

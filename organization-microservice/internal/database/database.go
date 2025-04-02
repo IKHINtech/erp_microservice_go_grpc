@@ -25,5 +25,11 @@ func Connect() {
 }
 
 func Migrate() error {
-	return DB.AutoMigrate(&models.Organization{}, &models.Department{}, &models.WorkUnit{}, &models.Position{}, &models.PositionHierarchy{})
+	return DB.AutoMigrate(
+		&models.Organization{},
+		&models.Department{},
+		&models.WorkUnit{},
+		&models.Position{},
+		&models.PositionHierarchy{},
+	)
 }

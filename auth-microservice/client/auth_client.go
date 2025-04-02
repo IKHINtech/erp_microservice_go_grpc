@@ -45,6 +45,20 @@ func (c *AuthClient) Login(ctx context.Context, email, password string) (*authv1
 	return res, nil
 }
 
+func (c *AuthClient) RefreshToken(ctx context.Context, req *authv1.RefreshTokenRequest) (*authv1.RefreshTokenResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.timeout)
+	defer cancel()
+
+	client := authv1.NewAuthServiceClient(c.conn)
+
+	res, err := client.RefreshToken(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return res, err
+
+}
+
 func (c *AuthClient) Register(ctx context.Context, req *authv1.RegisterUserRequest) (*authv1.RegisterUserResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)
 	defer cancel()

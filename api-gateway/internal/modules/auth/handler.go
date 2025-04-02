@@ -4,15 +4,16 @@ import (
 	"net/http"
 
 	"github.com/IKHINtech/erp_api_gateway/internal/utils"
+	authClient "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/client"
 	authv1 "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/pb/v1"
 	"github.com/gin-gonic/gin"
 )
 
 type Handler struct {
-	client *AuthClient
+	client *authClient.AuthClient
 }
 
-func NewHandler(client *AuthClient) *Handler {
+func NewHandler(client *authClient.AuthClient) *Handler {
 	return &Handler{client: client}
 }
 

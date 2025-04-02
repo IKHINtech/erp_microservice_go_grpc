@@ -9,12 +9,15 @@ import (
 )
 
 func main() {
+	// load config
 	_, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal("Gagal load config:", err)
 	}
+
 	// connect to database
 	database.Connect()
+
 	// migrasi database
 	database.Migrate()
 
