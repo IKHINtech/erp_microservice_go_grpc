@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	authSdk "github.com/IKHINtech/erp_microservice_go_grpc/sdk/auth"
+	authSdk "github.com/IKHINtech/erp_microservice_go_grpc/auth-microservice/client"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
