@@ -13,10 +13,10 @@ type Organization struct {
 
 // CreateOrganizationRequest model
 type CreateOrganizationRequest struct {
-	Name                 string
-	Description          string
-	Type                 string
-	ParentOrganizationID string `gorm:"type:uuid"`
+	Name                 string `json:"name" binding:"required"`
+	Description          string `json:"description" binding:"required"`
+	Type                 string `json:"type" binding:"required"`
+	ParentOrganizationID string `json:"parent_organization_id"`
 }
 
 // GetOrganizationRequest model

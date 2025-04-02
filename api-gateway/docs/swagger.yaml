@@ -63,6 +63,21 @@ definitions:
     - description
     - name
     type: object
+  organization.CreateOrganizationRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      parent_organization_id:
+        type: string
+      type:
+        type: string
+    required:
+    - description
+    - name
+    - type
+    type: object
   utils.ErrorResponse:
     properties:
       code:
@@ -239,6 +254,37 @@ paths:
       security:
       - Bearer: []
       summary: List Organization
+      tags:
+      - Organization
+    post:
+      consumes:
+      - application/json
+      description: Create Organization
+      parameters:
+      - description: Organization
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/organization.CreateOrganizationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Create Organization
       tags:
       - Organization
   /organization/department:
