@@ -227,7 +227,67 @@ paths:
       summary: Validate token
       tags:
       - Auth
-  /organization:
+  /org/department:
+    get:
+      consumes:
+      - application/json
+      description: List Departments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: List Departments
+      tags:
+      - Organization
+    post:
+      consumes:
+      - application/json
+      description: Create Department
+      parameters:
+      - description: Department
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/organization.CreateDepartmentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Create Departments
+      tags:
+      - Organization
+  /org/organization:
     get:
       consumes:
       - application/json
@@ -287,46 +347,17 @@ paths:
       summary: Create Organization
       tags:
       - Organization
-  /organization/department:
+  /org/organization/{id}:
     get:
       consumes:
       - application/json
-      description: List Departments
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/utils.SuccessResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/utils.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/utils.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/utils.ErrorResponse'
-      security:
-      - Bearer: []
-      summary: List Departments
-      tags:
-      - Organization
-    post:
-      consumes:
-      - application/json
-      description: Create Department
+      description: Get Organization
       parameters:
-      - description: Department
-        in: body
-        name: data
+      - description: Organization ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/organization.CreateDepartmentRequest'
+        type: string
       produces:
       - application/json
       responses:
@@ -344,7 +375,7 @@ paths:
             $ref: '#/definitions/utils.ErrorResponse'
       security:
       - Bearer: []
-      summary: Create Departments
+      summary: Get Organization
       tags:
       - Organization
 securityDefinitions:

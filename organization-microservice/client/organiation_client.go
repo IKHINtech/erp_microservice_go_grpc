@@ -87,11 +87,11 @@ func (c *OrganizationClient) DeleteOrganization(ctx context.Context, org *organi
 
 // // Department Endpoint
 // CreateDepartment(ctx context.Context, in *CreateDepartmentRequest, opts ...grpc.CallOption) (*Department, error)
-func (c *OrganizationClient) CreateDepartment(ctx context.Context, org *organizationv1.CreateOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) CreateDepartment(ctx context.Context, org *organizationv1.CreateDepartmentRequest) (*organizationv1.Department, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.CreateOrganization(ctx, org)
+	res, err := client.CreateDepartment(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -99,11 +99,11 @@ func (c *OrganizationClient) CreateDepartment(ctx context.Context, org *organiza
 }
 
 // GetDepartment(ctx context.Context, in *GetDepartmentRequest, opts ...grpc.CallOption) (*GetDepartmentResponse, error)
-func (c *OrganizationClient) GetDepartment(ctx context.Context, org *organizationv1.GetOrganizationRequest) (*organizationv1.GetOrganizationResponse, error) {
+func (c *OrganizationClient) GetDepartment(ctx context.Context, org *organizationv1.GetDepartmentRequest) (*organizationv1.GetDepartmentResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.GetOrganization(ctx, org)
+	res, err := client.GetDepartment(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -111,11 +111,11 @@ func (c *OrganizationClient) GetDepartment(ctx context.Context, org *organizatio
 }
 
 // ListDepartment(ctx context.Context, in *ListDepartmentRequest, opts ...grpc.CallOption) (*ListDepartmentResponse, error)
-func (c *OrganizationClient) ListDepartment(ctx context.Context) (*organizationv1.ListOrganizationResponse, error) {
+func (c *OrganizationClient) ListDepartment(ctx context.Context) (*organizationv1.ListDepartmentResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.ListOrganization(ctx, &organizationv1.ListOrganizationRequest{})
+	res, err := client.ListDepartment(ctx, &organizationv1.ListDepartmentRequest{})
 	if err != nil {
 		return nil, err
 	}
@@ -123,11 +123,11 @@ func (c *OrganizationClient) ListDepartment(ctx context.Context) (*organizationv
 }
 
 // UpdateDepartment(ctx context.Context, in *UpdateDepartmentRequest, opts ...grpc.CallOption) (*Department, error)
-func (c *OrganizationClient) UpdateDepartment(ctx context.Context, org *organizationv1.UpdateOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) UpdateDepartment(ctx context.Context, org *organizationv1.UpdateDepartmentRequest) (*organizationv1.Department, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.UpdateOrganization(ctx, org)
+	res, err := client.UpdateDepartment(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -135,11 +135,11 @@ func (c *OrganizationClient) UpdateDepartment(ctx context.Context, org *organiza
 }
 
 // DeleteDepartment(ctx context.Context, in *DeleteDepartmentRequest, opts ...grpc.CallOption) (*Department, error)
-func (c *OrganizationClient) DeleteDepartment(ctx context.Context, org *organizationv1.DeleteOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) DeleteDepartment(ctx context.Context, org *organizationv1.DeleteDepartmentRequest) (*organizationv1.Department, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.DeleteOrganization(ctx, org)
+	res, err := client.DeleteDepartment(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -148,11 +148,11 @@ func (c *OrganizationClient) DeleteDepartment(ctx context.Context, org *organiza
 
 // // WorkUnit Endpoint
 // CreateWorkUnit(ctx context.Context, in *CreateWorkUnitRequest, opts ...grpc.CallOption) (*WorkUnit, error)
-func (c *OrganizationClient) CreateWorkUnit(ctx context.Context, org *organizationv1.CreateOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) CreateWorkUnit(ctx context.Context, org *organizationv1.CreateWorkUnitRequest) (*organizationv1.WorkUnit, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.CreateOrganization(ctx, org)
+	res, err := client.CreateWorkUnit(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -160,11 +160,11 @@ func (c *OrganizationClient) CreateWorkUnit(ctx context.Context, org *organizati
 }
 
 // GetWorkUnit(ctx context.Context, in *GetWorkUnitRequest, opts ...grpc.CallOption) (*GetWorkUnitResponse, error)
-func (c *OrganizationClient) GetWorkUnit(ctx context.Context, org *organizationv1.GetOrganizationRequest) (*organizationv1.GetOrganizationResponse, error) {
+func (c *OrganizationClient) GetWorkUnit(ctx context.Context, org *organizationv1.GetWorkUnitRequest) (*organizationv1.GetWorkUnitResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.GetOrganization(ctx, org)
+	res, err := client.GetWorkUnit(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -172,11 +172,11 @@ func (c *OrganizationClient) GetWorkUnit(ctx context.Context, org *organizationv
 }
 
 // ListWorkUnit(ctx context.Context, in *ListWorkUnitRequest, opts ...grpc.CallOption) (*ListWorkUnitResponse, error)
-func (c *OrganizationClient) ListWorkUnit(ctx context.Context) (*organizationv1.ListOrganizationResponse, error) {
+func (c *OrganizationClient) ListWorkUnit(ctx context.Context) (*organizationv1.ListWorkUnitResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.ListOrganization(ctx, &organizationv1.ListOrganizationRequest{})
+	res, err := client.ListWorkUnit(ctx, &organizationv1.ListWorkUnitRequest{})
 	if err != nil {
 		return nil, err
 	}
@@ -184,11 +184,11 @@ func (c *OrganizationClient) ListWorkUnit(ctx context.Context) (*organizationv1.
 }
 
 // DeleteWorkUnit(ctx context.Context, in *DeleteWorkUnitRequest, opts ...grpc.CallOption) (*WorkUnit, error)
-func (c *OrganizationClient) DeleteWorkUnit(ctx context.Context, org *organizationv1.DeleteOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) DeleteWorkUnit(ctx context.Context, org *organizationv1.DeleteWorkUnitRequest) (*organizationv1.WorkUnit, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.DeleteOrganization(ctx, org)
+	res, err := client.DeleteWorkUnit(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -197,11 +197,11 @@ func (c *OrganizationClient) DeleteWorkUnit(ctx context.Context, org *organizati
 
 // // Position Endpoint
 // CreatePosition(ctx context.Context, in *CreatePositionRequest, opts ...grpc.CallOption) (*Position, error)
-func (c *OrganizationClient) CreatePosition(ctx context.Context, org *organizationv1.CreateOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) CreatePosition(ctx context.Context, org *organizationv1.CreatePositionRequest) (*organizationv1.Position, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.CreateOrganization(ctx, org)
+	res, err := client.CreatePosition(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -209,16 +209,18 @@ func (c *OrganizationClient) CreatePosition(ctx context.Context, org *organizati
 }
 
 // GetPosition(ctx context.Context, in *GetPositionRequest, opts ...grpc.CallOption) (*GetPositionResponse, error)
-func (c *OrganizationClient) GetPosition(ctx context.Context, org *organizationv1.GetOrganizationRequest) (*organizationv1.GetOrganizationResponse, error) {
+func (c *OrganizationClient) GetPosition(ctx context.Context, org *organizationv1.GetPositionRequest) (*organizationv1.GetPositionResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.GetOrganization(ctx, org)
+	res, err := client.GetPosition(ctx, org)
 	if err != nil {
 		return nil, err
 	}
 	return res, nil
 }
+
+//TODO: lanjut disini
 
 // ListPosition(ctx context.Context, in *ListPositionRequest, opts ...grpc.CallOption) (*ListPositionResponse, error)
 func (c *OrganizationClient) ListPosition(ctx context.Context) (*organizationv1.ListOrganizationResponse, error) {

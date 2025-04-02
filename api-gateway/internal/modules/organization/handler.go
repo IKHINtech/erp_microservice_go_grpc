@@ -20,6 +20,17 @@ func NewOrganizationHandler(client *orgClient.OrganizationClient) *OrganizationH
 	return &OrganizationHandler{client: client}
 }
 
+// @Summary Get Organization
+// @Description Get Organization
+// @Tags Organization
+// @Accept json
+// @Produce json
+// @Security Bearer
+// @Param id path string true "Organization ID"
+// @Success 200 {object} utils.SuccessResponse
+// @Failure 400 {object} utils.ErrorResponse
+// @Failure 401 {object} utils.ErrorResponse
+// @Router /org/organization/{id} [get]
 func (h *OrganizationHandler) GetOrganization(c *gin.Context) {
 	// baca param :id
 	id := c.Param("id")
@@ -57,7 +68,7 @@ func (h *OrganizationHandler) GetOrganization(c *gin.Context) {
 // @Success 200 {object} utils.SuccessResponse
 // @Failure 400 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
-// @Router /organization [post]
+// @Router /org/organization [post]
 func (h *OrganizationHandler) CreateOrganization(c *gin.Context) {
 
 	// cek konteks
@@ -119,7 +130,7 @@ func (h *OrganizationHandler) DeleteOrganization(c *gin.Context) {
 // @Failure 400 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
 // @Failure 500 {object} utils.ErrorResponse
-// @Router /organization [get]
+// @Router /org/organization [get]
 func (h *OrganizationHandler) ListOrganizations(c *gin.Context) {
 	ctx, exists := c.Get("grpc_ctx")
 	if !exists {
@@ -159,7 +170,7 @@ func (h *OrganizationHandler) ListOrganizations(c *gin.Context) {
 // @Param data body CreateDepartmentRequest true "Department"
 // @Failure 400 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
-// @Router /organization/department [post]
+// @Router /org/department [post]
 func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 
 	ctx, exists := c.Get("grpc_ctx")
@@ -187,7 +198,7 @@ func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 	}
 
 	// buat payload
-	payload := organizationv1.CreateOrganizationRequest{
+	payload := organizationv1.CreateDepartmentRequest{
 		Name:        data.Name,
 		Description: data.Description,
 	}
@@ -218,7 +229,7 @@ func (h *OrganizationHandler) CreateDepartment(c *gin.Context) {
 // @Failure 400 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
 // @Failure 500 {object} utils.ErrorResponse
-// @Router /organization/department [get]
+// @Router /org/department [get]
 func (h *OrganizationHandler) GetDepartments(c *gin.Context) {
 	// cek konteks
 	ctx, exists := c.Get("grpc_ctx")
