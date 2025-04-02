@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 
 	config "github.com/IKHINtech/erp_api_gateway/config"
 	"github.com/IKHINtech/erp_api_gateway/docs"
@@ -9,6 +10,7 @@ import (
 	"github.com/IKHINtech/erp_api_gateway/internal/modules/auth"
 	"github.com/IKHINtech/erp_api_gateway/internal/modules/organization"
 	"github.com/IKHINtech/erp_api_gateway/internal/routes"
+	"github.com/IKHINtech/erp_api_gateway/internal/utils"
 	"github.com/gin-gonic/gin"
 
 	swaggerfiles "github.com/swaggo/files"
@@ -60,11 +62,12 @@ func main() {
 	routes.RegisterDepartmentRoutes(r, organizationHandler)
 
 	r.GET("/", func(ctx *gin.Context) {
-		ctx.Set("response", "API GATEWAY")
+		utils.RespondSuccess(ctx, http.StatusOK, "API Gateway", nil)
 	})
 	r.NoRoute(func(c *gin.Context) {
-		c.Set("code", 404)
-		c.Set("response", "Route Not Found")
+		utils.RespondError(
+			c, http.StatusNotFound, "NOT_FOUND", nil, nil,
+		)
 	})
 
 	ginSwagger.WrapHandler(swaggerfiles.Handler)
