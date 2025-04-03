@@ -220,14 +220,12 @@ func (c *OrganizationClient) GetPosition(ctx context.Context, org *organizationv
 	return res, nil
 }
 
-//TODO: lanjut disini
-
 // ListPosition(ctx context.Context, in *ListPositionRequest, opts ...grpc.CallOption) (*ListPositionResponse, error)
-func (c *OrganizationClient) ListPosition(ctx context.Context) (*organizationv1.ListOrganizationResponse, error) {
+func (c *OrganizationClient) ListPosition(ctx context.Context) (*organizationv1.ListPositionResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.ListOrganization(ctx, &organizationv1.ListOrganizationRequest{})
+	res, err := client.ListPosition(ctx, &organizationv1.ListPositionRequest{})
 	if err != nil {
 		return nil, err
 	}
@@ -235,11 +233,11 @@ func (c *OrganizationClient) ListPosition(ctx context.Context) (*organizationv1.
 }
 
 // UpdatePosition(ctx context.Context, in *UpdatePositionRequest, opts ...grpc.CallOption) (*Position, error)
-func (c *OrganizationClient) UpdatePosition(ctx context.Context, org *organizationv1.UpdateOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) UpdatePosition(ctx context.Context, org *organizationv1.UpdatePositionRequest) (*organizationv1.Position, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.UpdateOrganization(ctx, org)
+	res, err := client.UpdatePosition(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -247,11 +245,11 @@ func (c *OrganizationClient) UpdatePosition(ctx context.Context, org *organizati
 }
 
 // DeletePosition(ctx context.Context, in *DeletePositionRequest, opts ...grpc.CallOption) (*Position, error)
-func (c *OrganizationClient) DeletePosition(ctx context.Context, org *organizationv1.DeleteOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) DeletePosition(ctx context.Context, org *organizationv1.DeletePositionRequest) (*organizationv1.Position, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.DeleteOrganization(ctx, org)
+	res, err := client.DeletePosition(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -260,11 +258,11 @@ func (c *OrganizationClient) DeletePosition(ctx context.Context, org *organizati
 
 // // Work Hierarchy Endpoint
 // CreatePositionHierarchy(ctx context.Context, in *CreatePositionHierarchyRequest, opts ...grpc.CallOption) (*PositionHierarchy, error)
-func (c *OrganizationClient) CreatePositionHierarchy(ctx context.Context, org *organizationv1.CreateOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) CreatePositionHierarchy(ctx context.Context, org *organizationv1.CreatePositionHierarchyRequest) (*organizationv1.PositionHierarchy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.CreateOrganization(ctx, org)
+	res, err := client.CreatePositionHierarchy(ctx, org)
 	if err != nil {
 		return nil, err
 	}
@@ -272,11 +270,11 @@ func (c *OrganizationClient) CreatePositionHierarchy(ctx context.Context, org *o
 }
 
 // GetPositionHierarchyBySuperior(ctx context.Context, in *GetPositionHierarchyBySuperiorRequest, opts ...grpc.CallOption) (*ListPositionHierarchyResponse, error)
-func (c *OrganizationClient) GetPositionHierarchyBySuperior(ctx context.Context) (*organizationv1.ListOrganizationResponse, error) {
+func (c *OrganizationClient) GetPositionHierarchyBySuperior(ctx context.Context) (*organizationv1.ListPositionHierarchyResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.ListOrganization(ctx, &organizationv1.ListOrganizationRequest{})
+	res, err := client.GetPositionHierarchyBySuperior(ctx, &organizationv1.GetPositionHierarchyBySuperiorRequest{})
 	if err != nil {
 		return nil, err
 	}
@@ -284,11 +282,11 @@ func (c *OrganizationClient) GetPositionHierarchyBySuperior(ctx context.Context)
 }
 
 // GetPositionHierarchyBySubordinated(ctx context.Context, in *GetPositionHierarchyBySubordinatedRequest, opts ...grpc.CallOption) (*ListPositionHierarchyResponse, error)
-func (c *OrganizationClient) GetPositionHierarchyBySubordinated(ctx context.Context) (*organizationv1.ListOrganizationResponse, error) {
+func (c *OrganizationClient) GetPositionHierarchyBySubordinated(ctx context.Context) (*organizationv1.ListPositionHierarchyResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.ListOrganization(ctx, &organizationv1.ListOrganizationRequest{})
+	res, err := client.GetPositionHierarchyBySubordinated(ctx, &organizationv1.GetPositionHierarchyBySubordinatedRequest{})
 	if err != nil {
 		return nil, err
 	}
@@ -296,11 +294,11 @@ func (c *OrganizationClient) GetPositionHierarchyBySubordinated(ctx context.Cont
 }
 
 // DeletePositionHierarchy(ctx context.Context, in *DeletePositionHierarchyRequest, opts ...grpc.CallOption) (*PositionHierarchy, error)
-func (c *OrganizationClient) DeletePositionHierarchy(ctx context.Context, org *organizationv1.DeleteOrganizationRequest) (*organizationv1.Organization, error) {
+func (c *OrganizationClient) DeletePositionHierarchy(ctx context.Context, org *organizationv1.DeletePositionHierarchyRequest) (*organizationv1.PositionHierarchy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.timeOut)
 	defer cancel()
 	client := organizationv1.NewOrganizationServiceClient(c.conn)
-	res, err := client.DeleteOrganization(ctx, org)
+	res, err := client.DeletePositionHierarchy(ctx, org)
 	if err != nil {
 		return nil, err
 	}
