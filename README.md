@@ -12,6 +12,7 @@ Monorepo untuk sistem ERP berbasis microservices dengan Go, gRPC, dan PostgreSQL
 | ---------------- | ------------------------------------ | ------------------- |
 | Auth Service     | Autentikasi & otorisasi terpusat     | ✅ Production Ready |
 | HRD Module       | Manajemen karyawan, absensi, payroll | 🚧 Development      |
+| Organization     | Manajemen organisasi                 | 🚧 Development      |
 | Finance Module   | Invoice, laporan keuangan            | ⏳ Planned          |
 | Inventory Module | Manajemen stok & gudang              | ⏳ Planned          |
 
@@ -19,8 +20,8 @@ Monorepo untuk sistem ERP berbasis microservices dengan Go, gRPC, dan PostgreSQL
 
 ```bash
 erp-system/
-├── 📁 auth-microservice/      # Layanan autentikasi (JWT, RBAC)
-├── 📁 hrd-microservice/       # Modul HRD (employee, attendance, payroll)
+├── 📁 auth-microservice/           # Layanan autentikasi (JWT, RBAC)
+├── 📁 hrd-microservice/            # Modul HRD (employee, attendance, payroll)
 │   ├── employee-service/
 │   ├── attendance-service/
 │   └── payroll-service/
