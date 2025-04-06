@@ -28,7 +28,7 @@ erp-system/
 ├── 📁 proto/                       # Protobuf definitions (shared)
 ├── 📁 organization-microservice/   # Modul organisasi (organization, department, position, work unit)
 ├── 📁 deployments/                 # Docker/K8s configs
-├── 📁 api-gateway/                 # Kong/Traefik configuration
+├── 📁 api-gateway/                 # Kong/Traefik/Gin Gonic configuration
 ├── 📁 docs/                        # Dokumentasi arsitektur
 ├── Makefile                        # Build semua services
 └── README.md                       # File ini
