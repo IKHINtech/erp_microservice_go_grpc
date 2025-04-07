@@ -6,15 +6,18 @@
 Microservice autentikasi dan otorisasi untuk sistem ERP, dibangun dengan Golang, gRPC, dan PostgreSQL.
 
 ## 🚀 Fitur Utama
+
 - Registrasi & Login User dengan JWT
 - Manajemen Role-Based Access Control (RBAC)
 - Validasi Token gRPC untuk layanan internal
 - Integrasi dengan:
   - HRD Microservice (Employee Data)
   - Finance Microservice
-- Dukungan Multi-Factor Authentication (MFA) *(coming soon)*
+  - Organization Microservice
+- Dukungan Multi-Factor Authentication (MFA) _(coming soon)_
 
 ## 📦 Struktur Proyek
+
 ```bash
 auth-microservice/
 ├── config/           # Konfigurasi environment
@@ -24,7 +27,8 @@ auth-microservice/
 │   ├── models/       # Database models
 │   ├── repositories/ # Database operations
 │   └── utils/        # JWT, password hashing
-├── proto/            # Protobuf definitions
+├── pb/               # Protobuf definitions
 ├── .env.example      # Template environment variables
 ├── go.mod            # Go module dependencies
 └── README.md         # Dokumentasi ini
+```
