@@ -1,6 +1,6 @@
 # Auth Microservice
 
-[![Go Version](https://img.shields.io/github/go-mod/go-version/yourusername/erp-system/auth-microservice)](https://golang.org/dl/)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/IKHINtech/erp_microservice_go_grpc)](https://golang.org/dl/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Microservice autentikasi dan otorisasi untuk sistem ERP, dibangun dengan Golang, gRPC, dan PostgreSQL.

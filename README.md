@@ -1,6 +1,6 @@
 # Enterprise Resource Planning (ERP) System
 
-[![Go Version](https://img.shields.io/github/go-mod/go-version/yourusername/erp-system)](https://golang.org/dl/)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/IKHINtech/erp_microservice_go_grpc)](https://golang.org/dl/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Microservices](https://img.shields.io/badge/arch-microservices-brightgreen)](https://microservices.io)
 

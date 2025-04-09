@@ -1,6 +1,6 @@
 # Organization Microservice
 
-[![Go Version](https://img.shields.io/github/go-mod/go-version/yourusername/erp-system/auth-microservice)](https://golang.org/dl/)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/IKHINtech/erp_microservice_go_grpc)](https://golang.org/dl/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Microservice Mangajemen Organisasi (Position, Department, Work Unit) dibangun dengan Golang, gRPC, dan PostgreSQL.
